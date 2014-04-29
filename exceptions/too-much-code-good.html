@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Too much code in the try clause &mdash; Readability Counts  documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/slides.css" type="text/css" />
+    
+
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/common.js"></script>
+    <script type="text/javascript" src="../_static/slides.js"></script>
+    <script type="text/javascript" src="../_static/sync.js"></script>
+    <script type="text/javascript" src="../_static/controller.js"></script>
+    <script type="text/javascript" src="../_static/init.js"></script>
+    
+    <link rel="top" title="Readability Counts  documentation" href="../index.html" /> 
+  </head>
+  <body>
+
+<section
+   id="slide_container"
+   class='slides layout-regular'>
+
+
+  <article class="slide level-1" id="too-much-code-in-the-try-clause">
+<h1>Too much code in the <tt class="docutils literal"><span class="pre">try</span></tt> clause</h1>
+<p><strong>GOOD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">try</span><span class="p">:</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">find_user</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">EmailError</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">log_failure</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="n">EmailMessage</span><span class="p">(</span><span class="n">from</span><span class="o">=</span><span class="n">user</span><span class="o">.</span><span class="n">email</span><span class="p">,</span> <span class="n">subject</span><span class="o">=</span><span class="s">&#39;Foo&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="s">&#39;Bar&#39;</span><span class="p">)</span>
+    <span class="n">message</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">recipient_email</span><span class="p">)</span>
+<span class="k">return</span> <span class="p">{</span><span class="s">&#39;user_email&#39;</span><span class="p">:</span> <span class="n">email</span><span class="p">,</span> <span class="s">&#39;recipient_email&#39;</span><span class="p">:</span> <span class="n">recipient_email</span><span class="p">}</span>
+</pre></div>
+</div>
+
+</article>
+
+
+</section>
+
+<section id="slide_notes">
+
+</section>
+
+  </body>
+</html>

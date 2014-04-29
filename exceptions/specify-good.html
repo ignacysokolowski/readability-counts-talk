@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Specify what exception you want to catch &mdash; Readability Counts  documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/slides.css" type="text/css" />
+    
+
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/common.js"></script>
+    <script type="text/javascript" src="../_static/slides.js"></script>
+    <script type="text/javascript" src="../_static/sync.js"></script>
+    <script type="text/javascript" src="../_static/controller.js"></script>
+    <script type="text/javascript" src="../_static/init.js"></script>
+    
+    <link rel="top" title="Readability Counts  documentation" href="../index.html" /> 
+  </head>
+  <body>
+
+<section
+   id="slide_container"
+   class='slides layout-regular'>
+
+
+  <article class="slide level-1" id="specify-what-exception-you-want-to-catch">
+<h1>Specify what exception you want to catch</h1>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">find_user</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">Users</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+<span class="hll">    <span class="k">except</span> <span class="n">UserLookupError</span><span class="p">:</span>
+</span>        <span class="n">user</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">return</span> <span class="n">user</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">find_user</span><span class="p">(</span><span class="s">&#39;foo&#39;</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">User</span> <span class="n">foo</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">find_user</span><span class="p">(</span><span class="s">&#39;bar&#39;</span><span class="p">)</span>
+<span class="bp">None</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">find_user</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s">&quot;api.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">7</span><span class="p">,</span> <span class="ow">in</span> <span class="n">get</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="n">username</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<span class="ne">AttributeError</span><span class="p">:</span> <span class="s">&#39;int&#39;</span> <span class="nb">object</span> <span class="n">has</span> <span class="n">no</span> <span class="n">attribute</span> <span class="s">&#39;lower&#39;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>We know that the user will be <tt class="docutils literal"><span class="pre">None</span></tt> when it's not found.</li>
+<li>We know what exception is raised when a user is not found.</li>
+<li>We know that we can catch other exceptions when calling <tt class="docutils literal"><span class="pre">find_user()</span></tt></li>
+<li>Avoid masking bugs.</li>
+</ul>
+
+</article>
+
+
+</section>
+
+<section id="slide_notes">
+
+</section>
+
+  </body>
+</html>

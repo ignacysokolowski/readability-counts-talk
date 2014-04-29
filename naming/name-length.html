@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Name length &mdash; Readability Counts  documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/slides.css" type="text/css" />
+    
+
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/common.js"></script>
+    <script type="text/javascript" src="../_static/slides.js"></script>
+    <script type="text/javascript" src="../_static/sync.js"></script>
+    <script type="text/javascript" src="../_static/controller.js"></script>
+    <script type="text/javascript" src="../_static/init.js"></script>
+    
+    <link rel="top" title="Readability Counts  documentation" href="../index.html" /> 
+  </head>
+  <body>
+
+<section
+   id="slide_container"
+   class='slides layout-regular'>
+
+
+  <article class="slide level-1" id="name-length">
+<h1>Name length</h1>
+<p>Names should be descriptive but not too long.</p>
+<p><strong>BAD:</strong></p>
+<div class="bad highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">ArticleTitleCanNotBeLongerThan100CharactersError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="kn">from</span> <span class="nn">project.blog.exceptions</span> <span class="kn">import</span> <span class="n">ArticleTitleCanNotBeLongerThan100CharactersError</span>
+</pre></div>
+</div>
+<p><strong>GOOD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">TitleLengthError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Raised when article title is longer than 100 characters.&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">project.blog.exceptions</span> <span class="kn">import</span> <span class="n">TitleLengthError</span>
+<span class="k">raise</span> <span class="n">TitleLengthError</span><span class="p">(</span><span class="s">&quot;Title longer than 100 characters: </span><span class="si">%s</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
+</pre></div>
+</div>
+
+</article>
+
+
+</section>
+
+<section id="slide_notes">
+
+</section>
+
+  </body>
+</html>

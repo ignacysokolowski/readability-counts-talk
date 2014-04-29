@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Readability counts. &mdash; Readability Counts  documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/styles.css" type="text/css" />
+    <link rel="stylesheet" href="_static/slides.css" type="text/css" />
+    
+
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/common.js"></script>
+    <script type="text/javascript" src="_static/slides.js"></script>
+    <script type="text/javascript" src="_static/sync.js"></script>
+    <script type="text/javascript" src="_static/controller.js"></script>
+    <script type="text/javascript" src="_static/init.js"></script>
+    
+    <link rel="top" title="Readability Counts  documentation" href="#" /> 
+  </head>
+  <body>
+
+<section
+   id="slide_container"
+   class='slides layout-regular'>
+
+
+  <article class="center slide level-1" id="readability-counts">
+<h1>Readability counts.</h1>
+<p>Ignacy Sokołowski</p>
+
+</article>
+<article class="center slide level-1" id="introduction">
+<h1>Introduction</h1>
+<ul class="simple">
+<li>Why the code readability is important?</li>
+<li>How to write readable code in Python?</li>
+<li>Examples of readable and unreadable code</li>
+<li>How easy it is to mislead yourself and other people</li>
+<li>How to prevent it</li>
+</ul>
+
+</article>
+<article class="slide level-1" id="the-talk-title">
+<h1>The talk title</h1>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">this</span>
+<span class="go">The Zen of Python, by Tim Peters</span>
+
+<span class="go">Beautiful is better than ugly.</span>
+<span class="go">Explicit is better than implicit.</span>
+<span class="go">Simple is better than complex.</span>
+<span class="go">Complex is better than complicated.</span>
+<span class="go">Flat is better than nested.</span>
+<span class="go">Sparse is better than dense.</span>
+<span class="hll"><span class="go">Readability counts.</span>
+</span><span class="go">Special cases aren&#39;t special enough to break the rules.</span>
+<span class="go">Although practicality beats purity.</span>
+<span class="go">Errors should never pass silently.</span>
+<span class="go">Unless explicitly silenced.</span>
+<span class="go">In the face of ambiguity, refuse the temptation to guess.</span>
+<span class="go">There should be one-- and preferably only one --obvious way to do it.</span>
+<span class="go">Although that way may not be obvious at first unless you&#39;re Dutch.</span>
+<span class="go">Now is better than never.</span>
+<span class="go">Although never is often better than *right* now.</span>
+<span class="go">If the implementation is hard to explain, it&#39;s a bad idea.</span>
+<span class="go">If the implementation is easy to explain, it may be a good idea.</span>
+<span class="go">Namespaces are one honking great idea -- let&#39;s do more of those!</span>
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="why">
+<h1>Why</h1>
+<p>Why readability counts?</p>
+<ul class="simple">
+<li>Code is read much more often than it is written</li>
+<li>Once you read your code after a long break, you won't remember how it works</li>
+<li>You're not the only one who will read your code</li>
+<li>If it's hard to read, it's also hard to find bugs</li>
+</ul>
+<p>Who reads your code?</p>
+<ul class="simple">
+<li>You</li>
+<li>You, after a break</li>
+<li>Your co-workers</li>
+<li>Reviewers</li>
+<li>Users of your libraries</li>
+</ul>
+
+</article>
+<article class="slide level-1" id="pep8">
+<h1>PEP8</h1>
+<p>Style Guide for Python code.</p>
+<ul class="simple">
+<li>Avoid arguing which style is better</li>
+<li>People get used to one guide -- no need to switch between different guides
+when switching projects</li>
+<li>No need to change style when changing your job</li>
+<li>Easier contribution</li>
+</ul>
+
+</article>
+<article class="slide level-1" id="naming-conventions">
+<h1>Naming conventions</h1>
+<ul class="simple">
+<li>ClassName (<tt class="docutils literal"><span class="pre">HTTPRequest</span></tt> vs <tt class="docutils literal"><span class="pre">HttpRequest</span></tt>,
+<tt class="docutils literal"><span class="pre">TwitterAPI</span></tt> vs <tt class="docutils literal"><span class="pre">TwitterApi</span></tt>)</li>
+<li>CONSTANT</li>
+<li>everything_else_lowercase: module, function, method, attribute, argument, etc.</li>
+</ul>
+<p>A reader knows what to expect, they can guess the object type by its name.</p>
+
+</article>
+<article class="slide level-1" id="naming-conventions-class">
+<h1>Naming conventions: class</h1>
+<p>Class name should be CamelCase.</p>
+<p><strong>BAD:</strong></p>
+<div class="bad highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">request</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="p">()</span>  <span class="c"># What the user expects.</span>
+<span class="n">request</span> <span class="o">=</span> <span class="n">request</span><span class="p">()</span>   <span class="c"># What the author meant.</span>
+</pre></div>
+</div>
+<p><strong>GOOD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Request</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">()</span>
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="naming-conventions-function">
+<h1>Naming conventions: function</h1>
+<p>Function or method name should be lowercase.</p>
+<p><strong>BAD:</strong></p>
+<div class="bad highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">Request</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="s">&#39;http://...&#39;</span><span class="p">)</span>   <span class="c"># What the user expects.</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="s">&#39;http://...&#39;</span><span class="p">)</span>  <span class="c"># What the author meant.</span>
+</pre></div>
+</div>
+<p><strong>GOOD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">request</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="p">(</span><span class="s">&#39;http://...&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="naming-conventions-module">
+<h1>Naming conventions: module</h1>
+<p>Module name should be lowercase.</p>
+<p><strong>BAD:</strong></p>
+<div class="bad highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">os.Path</span>
+
+<span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s">&#39;/tmp/foo.json&#39;</span><span class="p">)</span>  <span class="c"># What the user expects.</span>
+<span class="n">os</span><span class="o">.</span><span class="n">Path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s">&#39;/tmp/foo.json&#39;</span><span class="p">)</span>  <span class="c"># What the author meant.</span>
+</pre></div>
+</div>
+<p><strong>GOOD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">os.path</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s">&#39;/tmp/foo.json&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="naming-conventions-constant">
+<h1>Naming conventions: constant</h1>
+<p>Constants should be UPPERCASE.</p>
+<p><strong>BAD:</strong></p>
+<div class="bad highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.conf.settings</span> <span class="kn">import</span> <span class="n">TimeZone</span>
+
+<span class="n">time_zone</span> <span class="o">=</span> <span class="n">TimeZone</span><span class="p">(</span><span class="s">&#39;UTC&#39;</span><span class="p">)</span>  <span class="c"># What the user expects.</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">TimeZone</span>                 <span class="c"># What the author meant.</span>
+<span class="s">&#39;UTC&#39;</span>
+</pre></div>
+</div>
+<p><strong>GOOD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.conf.settings</span> <span class="kn">import</span> <span class="n">TIME_ZONE</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">TIME_ZONE</span>
+<span class="s">&#39;UTC&#39;</span>
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="naming-conventions-function-name">
+<h1>Naming conventions: function name</h1>
+<p>Function and method name should start with a verb, suggestive on the action.</p>
+<div class="twocol container">
+<div class="leftside container">
+<p><strong>BAD:</strong></p>
+<div class="bad highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">JSONFile</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
+
+<span class="hll">    <span class="k">def</span> <span class="nf">content</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">raw_content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">raw_content</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">content</span>
+
+<span class="n">json_file</span> <span class="o">=</span> <span class="n">JSONFile</span><span class="p">(</span><span class="s">&#39;./data.json&#39;</span><span class="p">)</span>
+<span class="c"># User expects &#39;content` to be an attribute.</span>
+<span class="k">if</span> <span class="n">json_file</span><span class="o">.</span><span class="n">content</span><span class="p">:</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">json_file</span><span class="o">.</span><span class="n">content</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">]</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="n">json_file</span><span class="o">.</span><span class="n">content</span><span class="p">[</span><span class="s">&#39;body&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="rightside container">
+<p><strong>GOOD</strong>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">JSONFile</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
+
+<span class="hll">    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">raw_content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">raw_content</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">content</span>
+
+<span class="n">json_file</span> <span class="o">=</span> <span class="n">JSONFile</span><span class="p">(</span><span class="s">&#39;./data.json&#39;</span><span class="p">)</span>
+<span class="n">content</span> <span class="o">=</span> <span class="n">json_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">content</span><span class="p">:</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">content</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">]</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="n">content</span><span class="p">[</span><span class="s">&#39;body&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+</article>
+<article class="slide level-1" id="naming-conventions-boolean">
+<h1>Naming conventions: boolean</h1>
+<p>Booleans should start with <tt class="docutils literal"><span class="pre">is_</span></tt>, <tt class="docutils literal"><span class="pre">has_</span></tt>, etc.</p>
+<p><strong>BAD:</strong></p>
+<div class="bad highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">avatar</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">username</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">password</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">avatar</span> <span class="o">=</span> <span class="n">avatar</span>
+
+    <span class="k">def</span> <span class="nf">get_avatar_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">avatar</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&#39;avatars&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">+</span> <span class="s">&#39;.png&#39;</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="s">&#39;admin&#39;</span><span class="p">,</span> <span class="s">&#39;passwd&#39;</span><span class="p">,</span> <span class="s">&#39;me.png&#39;</span><span class="p">)</span>  <span class="c"># What the user expects.</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">user</span><span class="o">.</span><span class="n">avatar</span>
+<span class="s">&#39;me.png&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">user</span><span class="o">.</span><span class="n">get_avatar_path</span><span class="p">()</span>
+<span class="s">&#39;avatars/me.png&#39;</span>
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="id1">
+<h1>Naming conventions: boolean</h1>
+<p>Booleans should start with <tt class="docutils literal"><span class="pre">is_</span></tt>, <tt class="docutils literal"><span class="pre">has_</span></tt>, etc.</p>
+<p><strong>BAD:</strong></p>
+<div class="bad highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">avatar</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">username</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">password</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">avatar</span> <span class="o">=</span> <span class="n">avatar</span>
+
+    <span class="k">def</span> <span class="nf">get_avatar_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">avatar</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&#39;avatars&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">+</span> <span class="s">&#39;.png&#39;</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="s">&#39;admin&#39;</span><span class="p">,</span> <span class="s">&#39;passwd&#39;</span><span class="p">,</span> <span class="n">avatar</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>   <span class="c"># What the author meant.</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">user</span><span class="o">.</span><span class="n">avatar</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">user</span><span class="o">.</span><span class="n">get_avatar_path</span><span class="p">()</span>
+<span class="s">&#39;avatars/admin.png&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="s">&#39;admin&#39;</span><span class="p">,</span> <span class="s">&#39;passwd&#39;</span><span class="p">,</span> <span class="n">avatar</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>   <span class="c"># What the author meant.</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">user</span><span class="o">.</span><span class="n">avatar_path</span>
+<span class="bp">None</span>
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="id2">
+<h1>Naming conventions: boolean</h1>
+<p>Booleans should start with <tt class="docutils literal"><span class="pre">is_</span></tt>, <tt class="docutils literal"><span class="pre">has_</span></tt>, etc.</p>
+<p><strong>GOOD</strong>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">has_avatar</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">username</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">password</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">has_avatar</span> <span class="o">=</span> <span class="n">has_avatar</span>
+
+    <span class="k">def</span> <span class="nf">get_avatar_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_avatar</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&#39;avatars&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">+</span> <span class="s">&#39;.png&#39;</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="s">&#39;admin&#39;</span><span class="p">,</span> <span class="s">&#39;passwd&#39;</span><span class="p">,</span> <span class="n">has_avatar</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">user</span><span class="o">.</span><span class="n">has_avatar</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">user</span><span class="o">.</span><span class="n">get_avatar_path</span><span class="p">()</span>
+<span class="s">&#39;avatars/admin.png&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="s">&#39;admin&#39;</span><span class="p">,</span> <span class="s">&#39;passwd&#39;</span><span class="p">,</span> <span class="n">has_avatar</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">user</span><span class="o">.</span><span class="n">get_avatar_path</span><span class="p">()</span>
+<span class="bp">None</span>
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="name-length">
+<h1>Name length</h1>
+<p>Names should be descriptive but not too long.</p>
+<p><strong>BAD:</strong></p>
+<div class="bad highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">ArticleTitleCanNotBeLongerThan100CharactersError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="kn">from</span> <span class="nn">project.blog.exceptions</span> <span class="kn">import</span> <span class="n">ArticleTitleCanNotBeLongerThan100CharactersError</span>
+</pre></div>
+</div>
+<p><strong>GOOD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">TitleLengthError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Raised when article title is longer than 100 characters.&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">project.blog.exceptions</span> <span class="kn">import</span> <span class="n">TitleLengthError</span>
+<span class="k">raise</span> <span class="n">TitleLengthError</span><span class="p">(</span><span class="s">&quot;Title longer than 100 characters: </span><span class="si">%s</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="punctuation">
+<h1>Punctuation</h1>
+<p>Space after comma, full stop, colon, etc.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">foo</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>  <span class="c"># Bad.</span>
+<span class="n">foo</span><span class="p">(</span><span class="mf">1.2</span><span class="p">)</span>
+<span class="n">foo</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">foo</span><span class="p">(</span><span class="n">one</span><span class="p">,</span> <span class="n">two</span><span class="p">,</span><span class="n">three</span><span class="p">,</span> <span class="n">four</span><span class="p">)</span>  <span class="c"># Bad.</span>
+<span class="n">foo</span><span class="p">(</span><span class="n">one</span><span class="p">,</span> <span class="n">two</span><span class="o">.</span><span class="n">three</span><span class="p">,</span> <span class="n">four</span><span class="p">)</span>
+<span class="n">foo</span><span class="p">(</span><span class="n">one</span><span class="p">,</span> <span class="n">two</span><span class="p">,</span> <span class="n">three</span><span class="p">,</span> <span class="n">four</span><span class="p">)</span>
+
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span>  <span class="c"># Bad.</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mf">4.5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span>  <span class="c"># Bad.</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="characters">
+<h1>79 characters</h1>
+<ul class="simple">
+<li>Like reading text -- easier when the format is not too big</li>
+<li>Small resolution, e.g. mobile</li>
+<li>Scrolling</li>
+<li>Even if your editor can wrap lines, it probably can't do it in a readable
+way</li>
+<li>Side-by-side diffs</li>
+</ul>
+
+</article>
+<article class="slide level-1" id="indentation-of-continuation-lines">
+<h1>Indentation of continuation lines</h1>
+<p>Indentation should be always a multiple of four.</p>
+
+</article>
+<article class="slide level-1" id="indentation-of-a-dictionary-list-etc">
+<h1>Indentation of a dictionary, list, etc.</h1>
+<p><strong>BAD:</strong></p>
+<div class="bad highlight-python"><div class="highlight"><pre><span class="n">some_dictionary</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;ok&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s">&#39;not_found&#39;</span><span class="p">:</span> <span class="mi">404</span><span class="p">,</span> <span class="s">&#39;forbidden&#39;</span><span class="p">:</span> <span class="mi">403</span><span class="p">,</span>
+                   <span class="s">&#39;bad_request&#39;</span><span class="p">:</span> <span class="mi">400</span><span class="p">,</span> <span class="s">&#39;internal_server_error&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-diff"><div class="highlight"><pre><span class="gu">@@ -27,7 +27,6 @@</span>
+<span class="gd">- some_dictionary = {&#39;ok&#39;: 200, &#39;not_found&#39;: 404, &#39;forbidden&#39;: 403,</span>
+<span class="gd">-                    &#39;bad_request&#39;: 400, &#39;internal_server_error&#39;: 500}</span>
+<span class="gi">+ status_codes = {&#39;ok&#39;: 200, &#39;not_found&#39;: 404, &#39;forbidden&#39;: 403,</span>
+<span class="gi">+                 &#39;bad_request&#39;: 400, &#39;internal_server_error&#39;: 500}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>What was actually changed?  Only the name or maybe also some key?</li>
+</ul>
+
+</article>
+<article class="slide level-1" id="id3">
+<h1>Indentation of a dictionary, list, etc.</h1>
+<p><strong>BAD:</strong></p>
+<div class="bad highlight-python"><div class="highlight"><pre><span class="n">some_dictionary</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;ok&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s">&#39;not_found&#39;</span><span class="p">:</span> <span class="mi">404</span><span class="p">,</span> <span class="s">&#39;forbidden&#39;</span><span class="p">:</span> <span class="mi">403</span><span class="p">,</span>
+                   <span class="s">&#39;bad_request&#39;</span><span class="p">:</span> <span class="mi">400</span><span class="p">,</span> <span class="s">&#39;internal_server_error&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-diff"><div class="highlight"><pre><span class="gu">@@ -27,7 +27,6 @@</span>
+<span class="gd">- some_dictionary = {&#39;ok&#39;: 200, &#39;not_found&#39;: 404, &#39;forbidden&#39;: 403,</span>
+<span class="gd">-                    &#39;bad_request&#39;: 400, &#39;internal_server_error&#39;: 500}</span>
+<span class="gi">+ some_dictionary = {&#39;ok&#39;: 200, &#39;unauthorized&#39;: 401, &#39;not_found&#39;: 404,</span>
+<span class="gi">+                    &#39;forbidden&#39;: 403, &#39;bad_request&#39;: 400,</span>
+<span class="gi">+                    &#39;internal_server_error&#39;: 500}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>What changed?  A key, a value?  A new item was added?</li>
+</ul>
+
+</article>
+<article class="slide level-1" id="id4">
+<h1>Indentation of a dictionary, list, etc.</h1>
+<p><strong>BETTER:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">some_dictionary</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;ok&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+    <span class="s">&#39;not_found&#39;</span><span class="p">:</span> <span class="mi">404</span><span class="p">,</span>
+    <span class="s">&#39;forbidden&#39;</span><span class="p">:</span> <span class="mi">403</span><span class="p">,</span>
+    <span class="s">&#39;bad_request&#39;</span><span class="p">:</span> <span class="mi">400</span><span class="p">,</span>
+    <span class="s">&#39;internal_server_error&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-diff"><div class="highlight"><pre><span class="gu">@@ -27,7 +27,6 @@</span>
+<span class="gd">- some_dictionary = {</span>
+<span class="gi">+ status_codes = {</span>
+      &#39;ok&#39;: 200,
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="id5">
+<h1>Indentation of a dictionary, list, etc.</h1>
+<p><strong>BETTER:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">some_dictionary</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;ok&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+    <span class="s">&#39;not_found&#39;</span><span class="p">:</span> <span class="mi">404</span><span class="p">,</span>
+    <span class="s">&#39;forbidden&#39;</span><span class="p">:</span> <span class="mi">403</span><span class="p">,</span>
+    <span class="s">&#39;bad_request&#39;</span><span class="p">:</span> <span class="mi">400</span><span class="p">,</span>
+    <span class="s">&#39;internal_server_error&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-diff"><div class="highlight"><pre><span class="gu">@@ -27,7 +27,6 @@ some_dictionary = {</span>
+      &#39;ok&#39;: 200,
+<span class="gi">+     &#39;unauthorized&#39;: 401,</span>
+      &#39;not_found&#39;: 404,
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="id6">
+<h1>Indentation of a dictionary, list, etc.</h1>
+<p><strong>BETTER:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">some_dictionary</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;ok&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+    <span class="s">&#39;not_found&#39;</span><span class="p">:</span> <span class="mi">404</span><span class="p">,</span>
+    <span class="s">&#39;forbidden&#39;</span><span class="p">:</span> <span class="mi">403</span><span class="p">,</span>
+    <span class="s">&#39;bad_request&#39;</span><span class="p">:</span> <span class="mi">400</span><span class="p">,</span>
+    <span class="s">&#39;internal_server_error&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>But here's a problem:</p>
+<div class="highlight-diff"><div class="highlight"><pre><span class="gu">@@ -27,7 +27,6 @@ some_dictionary = {</span>
+      &#39;bad_request&#39;: 400,
+<span class="gd">-     &#39;internal_server_error&#39;: 500}</span>
+<span class="gi">+     &#39;internal_server_error&#39;: 500,</span>
+<span class="gi">+     &#39;conflict&#39;: 409}</span>
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="id7">
+<h1>Indentation of a dictionary, list, etc.</h1>
+<p><strong>BEST:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">some_dictionary</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;ok&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+    <span class="s">&#39;not_found&#39;</span><span class="p">:</span> <span class="mi">404</span><span class="p">,</span>
+    <span class="s">&#39;forbidden&#39;</span><span class="p">:</span> <span class="mi">403</span><span class="p">,</span>
+    <span class="s">&#39;bad_request&#39;</span><span class="p">:</span> <span class="mi">400</span><span class="p">,</span>
+    <span class="s">&#39;internal_server_error&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-diff"><div class="highlight"><pre><span class="gu">@@ -27,7 +27,6 @@ some_dictionary = {</span>
+     &#39;internal_server_error&#39;: 500,
+<span class="gi">+    &#39;conflict&#39;: 409,</span>
+ }
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="indentation-of-a-function-call">
+<h1>Indentation of a function call</h1>
+<p><strong>BAD:</strong></p>
+<div class="bad highlight-python"><div class="highlight"><pre><span class="n">some_long_name</span> <span class="o">=</span> <span class="n">SomeLongClass</span><span class="o">.</span><span class="n">some_long_method_name</span><span class="p">(</span><span class="n">some_dictionary</span><span class="p">[</span><span class="s">&#39;foo&#39;</span><span class="p">],</span>
+                                                     <span class="n">some_dictionary</span><span class="p">[</span><span class="s">&#39;bar&#39;</span><span class="p">],</span>
+                                                     <span class="n">some_dictionary</span><span class="p">[</span><span class="s">&#39;baz&#39;</span><span class="p">],</span>
+                                                     <span class="n">some_dictionary</span><span class="p">[</span><span class="s">&#39;foobar&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Not enough space for arguments.</li>
+<li>When a variable/class/method name changes, you have to reindent everything.</li>
+</ul>
+
+</article>
+<article class="slide level-1" id="id8">
+<h1>Indentation of a function call</h1>
+<p><strong>BETTER:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">some_long_name</span> <span class="o">=</span> <span class="n">SomeLongClass</span><span class="o">.</span><span class="n">some_long_method_name</span><span class="p">(</span>
+    <span class="n">some_dictionary</span><span class="p">[</span><span class="s">&#39;foo&#39;</span><span class="p">],</span> <span class="n">some_dictionary</span><span class="p">[</span><span class="s">&#39;bar&#39;</span><span class="p">],</span> <span class="n">some_dictionary</span><span class="p">[</span><span class="s">&#39;baz&#39;</span><span class="p">],</span>
+    <span class="n">some_dictionary</span><span class="p">[</span><span class="s">&#39;foobar&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>If an argument changes its length, you have to change at least two lines.</li>
+</ul>
+
+</article>
+<article class="slide level-1" id="id9">
+<h1>Indentation of a function call</h1>
+<p><strong>BEST:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">some_long_name</span> <span class="o">=</span> <span class="n">SomeLongClass</span><span class="o">.</span><span class="n">some_long_method_name</span><span class="p">(</span>
+    <span class="n">some_dictionary</span><span class="p">[</span><span class="s">&#39;foo&#39;</span><span class="p">],</span>
+    <span class="n">some_dictionary</span><span class="p">[</span><span class="s">&#39;bar&#39;</span><span class="p">],</span>
+    <span class="n">some_dictionary</span><span class="p">[</span><span class="s">&#39;baz&#39;</span><span class="p">],</span>
+    <span class="n">some_dictionary</span><span class="p">[</span><span class="s">&#39;foobar&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Easier to scan all the dictionary keys.</li>
+</ul>
+
+</article>
+<article class="slide level-1" id="indentation-of-an-if-statement">
+<h1>Indentation of an <tt class="docutils literal"><span class="pre">if</span></tt> statement</h1>
+<p><strong>BAD:</strong></p>
+<div class="bad highlight-python"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">foo</span><span class="p">(</span><span class="n">some_argument</span><span class="p">)</span> <span class="ow">and</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">another_argument</span><span class="p">)</span> <span class="ow">and</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">baz</span><span class="p">(</span><span class="n">third_argument</span><span class="p">)</span> <span class="ow">and</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">spam</span><span class="p">(</span><span class="n">fourth_argument</span><span class="p">)):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">foobar</span><span class="p">(</span><span class="n">some_argument</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>The last line looks like another condition for the <tt class="docutils literal"><span class="pre">if</span></tt> statement.</li>
+</ul>
+<p><strong>GOOD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">foo</span><span class="p">(</span><span class="n">some_argument</span><span class="p">)</span> <span class="ow">and</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">another_argument</span><span class="p">)</span> <span class="ow">and</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">baz</span><span class="p">(</span><span class="n">third_argument</span><span class="p">)</span> <span class="ow">and</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spam</span><span class="p">(</span><span class="n">fourth_argument</span><span class="p">)):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">foobar</span><span class="p">(</span><span class="n">some_argument</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Indented twice.</li>
+</ul>
+
+</article>
+<article class="slide level-1" id="group-your-imports">
+<h1>Group your imports</h1>
+<ol class="arabic simple">
+<li>standard library</li>
+<li>third party</li>
+<li>local application</li>
+</ol>
+
+</article>
+<article class="slide level-1" id="id10">
+<h1>Group your imports</h1>
+<p><strong>BAD:</strong></p>
+<div class="bad highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render_to_response</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">requests</span>  <span class="c"># Is requests in the standard library?</span>
+<span class="kn">from</span> <span class="nn">django.views.generic.list_detail</span> <span class="kn">import</span> <span class="n">object_detail</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">something</span>
+<span class="kn">import</span> <span class="nn">os</span>
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="id11">
+<h1>Group your imports</h1>
+<p><strong>GOOD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">sqlalchemy</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">exceptions</span>
+</pre></div>
+</div>
+<p>You know what 3rd party libraries are used.</p>
+
+</article>
+<article class="slide level-1" id="sort-imports-alphabetically">
+<h1>Sort imports alphabetically</h1>
+<p>It's easier to find a specific import.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">calendar</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="use-namespaces">
+<h1>Use namespaces</h1>
+
+</article>
+<article class="slide level-1" id="use-namespaces-never-import">
+<h1>Use namespaces: never import <tt class="docutils literal"><span class="pre">*</span></tt>!</h1>
+<p><strong>BAD:</strong></p>
+<div class="bad highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">requests</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c"># Where do these come from?</span>
+<span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
+<span class="n">get</span><span class="p">(</span><span class="n">foo</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>GOOD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">sqlalchemy.orm</span>
+
+<span class="n">session</span> <span class="o">=</span> <span class="n">sqlalchemy</span><span class="o">.</span><span class="n">orm</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+<span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">foo</span><span class="p">)</span>
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="use-namespaces-import-modules">
+<h1>Use namespaces: import modules</h1>
+<p>It's often a better idea to import module instead of each name directly.</p>
+<p><strong>BAD:</strong></p>
+<div class="bad highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">requests</span> <span class="kn">import</span> <span class="n">get</span><span class="p">,</span> <span class="n">post</span><span class="p">,</span> <span class="n">Session</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">HTTPError</span><span class="p">,</span> <span class="n">Response</span>
+
+<span class="c"># Somewhere at the bottom of a long module:</span>
+<span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
+<span class="n">get</span><span class="p">(</span><span class="n">foo</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="bad highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">requests</span> <span class="kn">import</span> <span class="n">request</span>
+
+<span class="k">def</span> <span class="nf">some_django_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>  <span class="c"># Overriding &#39;request&#39;.</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="p">(</span><span class="s">&#39;POST&#39;</span><span class="p">,</span> <span class="s">&#39;http://...&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="id12">
+<h1>Use namespaces: import modules</h1>
+<p>It's often a better idea to import module instead of each name directly.</p>
+<p><strong>GOOD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="c"># Somewhere at the bottom of a long module:</span>
+<span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+<span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">foo</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="k">def</span> <span class="nf">some_django_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s">&#39;POST&#39;</span><span class="p">,</span> <span class="s">&#39;http://...&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pylons</span>
+
+<span class="k">def</span> <span class="nf">do_something_using_pylons_config</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">config</span> <span class="ow">or</span> <span class="n">pylons</span><span class="o">.</span><span class="n">config</span>
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="nesting-statements-in-one-line">
+<h1>Nesting statements in one line</h1>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">[</span>
+  <span class="p">{</span><span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;foo bar&quot;</span><span class="p">,</span> <span class="nt">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;Lorem ipsum ...&quot;</span><span class="p">},</span>
+  <span class="p">{</span><span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;bar foo&quot;</span><span class="p">,</span> <span class="nt">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;Dolor sit amet ...&quot;</span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>BAD:</strong></p>
+<div class="bad highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">get_first_initial_bad</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())[</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;title&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="id13">
+<h1>Nesting statements in one line</h1>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">[</span>
+  <span class="p">{</span><span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;foo bar&quot;</span><span class="p">,</span> <span class="nt">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;Lorem ipsum ...&quot;</span><span class="p">},</span>
+  <span class="p">{</span><span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;bar foo&quot;</span><span class="p">,</span> <span class="nt">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;Dolor sit amet ...&quot;</span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>GOOD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">get_first_initial_good</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">json_content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">articles</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_content</span><span class="p">)</span>
+    <span class="n">first_article</span> <span class="o">=</span> <span class="n">articles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">first_article</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">]</span>
+    <span class="n">first_letter</span> <span class="o">=</span> <span class="n">title</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">initial</span> <span class="o">=</span> <span class="n">first_letter</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">initial</span>
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="id14">
+<h1>Nesting statements in one line</h1>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">[]</span>
+</pre></div>
+</div>
+<p><strong>BAD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre>Traceback (most recent call last):
+  File &quot;./initial.py&quot;, line 7, in get_first_initial_bad
+    return json.loads(open(file_path).read())[0][&#39;title&#39;][0].upper()
+IndexError: list index out of range
+</pre></div>
+</div>
+<ul class="simple">
+<li>Which index?  The first <tt class="docutils literal"><span class="pre">[0]</span></tt> or the second one?</li>
+</ul>
+<p><strong>GOOD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre>Traceback (most recent call last):
+  File &quot;./initial.py&quot;, line 14, in get_first_initial_good
+    first_article = articles[0]
+IndexError: list index out of range
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="id15">
+<h1>Nesting statements in one line</h1>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">[{</span><span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="p">[]}]</span>
+</pre></div>
+</div>
+<p><strong>BAD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre>Traceback (most recent call last):
+  File &quot;./initial.py&quot;, line 7, in get_first_initial_bad
+    return json.loads(open(file_path).read())[0][&#39;title&#39;][0].upper()
+IndexError: list index out of range
+</pre></div>
+</div>
+<ul class="simple">
+<li>Which index?  The first <tt class="docutils literal"><span class="pre">[0]</span></tt> or the second one?</li>
+</ul>
+<p><strong>GOOD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre>Traceback (most recent call last):
+  File &quot;./initial.py&quot;, line 16, in get_first_initial_good
+    first_letter = title[0]
+IndexError: list index out of range
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="id16">
+<h1>Nesting statements in one line</h1>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">[{</span><span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">}]</span>
+</pre></div>
+</div>
+<p><strong>BAD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre>Traceback (most recent call last):
+  File &quot;./initial.py&quot;, line 7, in get_first_initial_bad
+    return json.loads(open(file_path).read())[0][&#39;title&#39;][0].upper()
+TypeError: &#39;NoneType&#39; object has no attribute &#39;__getitem__&#39;
+</pre></div>
+</div>
+<ul class="simple">
+<li>Which is <tt class="docutils literal"><span class="pre">None</span></tt>?  The JSON object or the title?</li>
+</ul>
+<p><strong>GOOD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre>Traceback (most recent call last):
+  File &quot;./initial.py&quot;, line 16, in get_first_initial_good
+    first_letter = title[0]
+TypeError: &#39;NoneType&#39; object has no attribute &#39;__getitem__&#39;
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="id17">
+<h1>Nesting statements in one line</h1>
+<div class="highlight-json"><div class="highlight"><pre><span class="kc">null</span>
+</pre></div>
+</div>
+<p><strong>BAD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre>Traceback (most recent call last):
+  File &quot;./initial.py&quot;, line 7, in get_first_initial_bad
+    return json.loads(open(file_path).read())[0][&#39;title&#39;][0].upper()
+TypeError: &#39;NoneType&#39; object has no attribute &#39;__getitem__&#39;
+</pre></div>
+</div>
+<ul class="simple">
+<li>Which is <tt class="docutils literal"><span class="pre">None</span></tt>?  The JSON object or the title?</li>
+</ul>
+<p><strong>GOOD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre>Traceback (most recent call last):
+  File &quot;./initial.py&quot;, line 14, in get_first_initial_good
+    first_article = articles[0]
+TypeError: &#39;NoneType&#39; object has no attribute &#39;__getitem__&#39;
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="id18">
+<h1>Nesting statements in one line</h1>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span><span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>BAD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre>Traceback (most recent call last):
+  File &quot;./initial.py&quot;, line 7, in get_first_initial_bad
+    return json.loads(open(file_path).read())[0][&#39;title&#39;][0].upper()
+KeyError: 0
+</pre></div>
+</div>
+<ul class="simple">
+<li>Which key?  The first <tt class="docutils literal"><span class="pre">[0]</span></tt> or the second one?</li>
+</ul>
+<p><strong>GOOD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre>Traceback (most recent call last):
+  File &quot;./initial.py&quot;, line 14, in get_first_initial_good
+    first_article = articles[0]
+KeyError: 0
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="id19">
+<h1>Nesting statements in one line</h1>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">[{</span><span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="p">{}}]</span>
+</pre></div>
+</div>
+<p><strong>BAD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre>Traceback (most recent call last):
+  File &quot;./initial.py&quot;, line 7, in get_first_initial_bad
+    return json.loads(open(file_path).read())[0][&#39;title&#39;][0].upper()
+KeyError: 0
+</pre></div>
+</div>
+<ul class="simple">
+<li>Which key?  The first <tt class="docutils literal"><span class="pre">[0]</span></tt> or the second one?</li>
+</ul>
+<p><strong>GOOD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre>Traceback (most recent call last):
+  File &quot;./initial.py&quot;, line 16, in get_first_initial_good
+    first_letter = title[0]
+KeyError: 0
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="id20">
+<h1>Nesting statements in one line</h1>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">[{</span><span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">}]</span>
+</pre></div>
+</div>
+<p><strong>BAD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre>Traceback (most recent call last):
+  File &quot;./initial.py&quot;, line 7, in get_first_initial_bad
+    return json.loads(open(file_path).read())[0][&#39;title&#39;][0].upper()
+IndexError: string index out of range
+</pre></div>
+</div>
+<ul class="simple">
+<li>Which one is a string?  The JSON object or the title?</li>
+</ul>
+<p><strong>GOOD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre>Traceback (most recent call last):
+  File &quot;./initial.py&quot;, line 16, in get_first_initial_good
+    first_letter = title[0]
+IndexError: string index out of range
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="specify-what-exception-you-want-to-catch">
+<h1>Specify what exception you want to catch</h1>
+<p><strong>BAD:</strong></p>
+<div class="bad highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">find_user</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">Users</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+<span class="hll">    <span class="k">except</span><span class="p">:</span>
+</span>        <span class="n">user</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">return</span> <span class="n">user</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">find_user</span><span class="p">(</span><span class="s">&#39;foo&#39;</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">User</span> <span class="n">foo</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">find_user</span><span class="p">(</span><span class="s">&#39;bar&#39;</span><span class="p">)</span>
+<span class="bp">None</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">find_user</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="bp">None</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>When the user will be <tt class="docutils literal"><span class="pre">None</span></tt>?  When it's not found?  When the username is
+invalid?</li>
+<li>It will be <tt class="docutils literal"><span class="pre">None</span></tt> even when there's a bug in <tt class="docutils literal"><span class="pre">Users.get()</span></tt>.
+Or somewhere deeper.</li>
+</ul>
+
+</article>
+<article class="slide level-1" id="id21">
+<h1>Specify what exception you want to catch</h1>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">find_user</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">Users</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+<span class="hll">    <span class="k">except</span> <span class="n">UserLookupError</span><span class="p">:</span>
+</span>        <span class="n">user</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">return</span> <span class="n">user</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">find_user</span><span class="p">(</span><span class="s">&#39;foo&#39;</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">User</span> <span class="n">foo</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">find_user</span><span class="p">(</span><span class="s">&#39;bar&#39;</span><span class="p">)</span>
+<span class="bp">None</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">find_user</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s">&quot;api.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">7</span><span class="p">,</span> <span class="ow">in</span> <span class="n">get</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="n">username</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<span class="ne">AttributeError</span><span class="p">:</span> <span class="s">&#39;int&#39;</span> <span class="nb">object</span> <span class="n">has</span> <span class="n">no</span> <span class="n">attribute</span> <span class="s">&#39;lower&#39;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>We know that the user will be <tt class="docutils literal"><span class="pre">None</span></tt> when it's not found.</li>
+<li>We know what exception is raised when a user is not found.</li>
+<li>We know that we can catch other exceptions when calling <tt class="docutils literal"><span class="pre">find_user()</span></tt></li>
+<li>Avoid masking bugs.</li>
+</ul>
+
+</article>
+<article class="slide level-1" id="too-much-code-in-the-try-clause">
+<h1>Too much code in the <tt class="docutils literal"><span class="pre">try</span></tt> clause</h1>
+<p><strong>BAD:</strong></p>
+<div class="bad highlight-python"><div class="highlight"><pre><span class="k">try</span><span class="p">:</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">find_user</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="n">EmailMessage</span><span class="p">(</span><span class="n">from</span><span class="o">=</span><span class="n">user</span><span class="o">.</span><span class="n">email</span><span class="p">,</span> <span class="n">subject</span><span class="o">=</span><span class="s">&#39;Foo&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="s">&#39;Bar&#39;</span><span class="p">)</span>
+    <span class="n">message</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">recipient_email</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">EmailError</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">log_failure</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+<span class="k">return</span> <span class="p">{</span><span class="s">&#39;user_email&#39;</span><span class="p">:</span> <span class="n">email</span><span class="p">,</span> <span class="s">&#39;recipient_email&#39;</span><span class="p">:</span> <span class="n">recipient_email</span><span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Which line actually raises the <tt class="docutils literal"><span class="pre">EmailError</span></tt>?</li>
+</ul>
+
+</article>
+<article class="slide level-1" id="id22">
+<h1>Too much code in the <tt class="docutils literal"><span class="pre">try</span></tt> clause</h1>
+<p><strong>GOOD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">try</span><span class="p">:</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">find_user</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">EmailError</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">log_failure</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="n">EmailMessage</span><span class="p">(</span><span class="n">from</span><span class="o">=</span><span class="n">user</span><span class="o">.</span><span class="n">email</span><span class="p">,</span> <span class="n">subject</span><span class="o">=</span><span class="s">&#39;Foo&#39;</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="s">&#39;Bar&#39;</span><span class="p">)</span>
+    <span class="n">message</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">recipient_email</span><span class="p">)</span>
+<span class="k">return</span> <span class="p">{</span><span class="s">&#39;user_email&#39;</span><span class="p">:</span> <span class="n">email</span><span class="p">,</span> <span class="s">&#39;recipient_email&#39;</span><span class="p">:</span> <span class="n">recipient_email</span><span class="p">}</span>
+</pre></div>
+</div>
+
+</article>
+<article class="slide level-1" id="write-short-methods">
+<h1>Write short methods</h1>
+<p>Avoid long functions and methods.</p>
+<p>Split them into many small ones.</p>
+<p>Refactor functions into classes if they share the same data via arguments.</p>
+
+</article>
+<article class="slide level-1" id="short-methods-readability">
+<h1>Short methods: readability</h1>
+<ul class="simple">
+<li>When you read a long function, at the end of it you can't remember the
+begining.</li>
+<li>And you don't want to read it.  (TL;DR)</li>
+<li>If a function is long, it usually has many indentation levels.
+When a line is deeply indented, it has to be short.  Then, there's not enough
+space to fit even quite short statements.</li>
+<li>Function names can replace comments.</li>
+</ul>
+
+</article>
+<article class="slide level-1" id="short-methods-testing">
+<h1>Short methods: testing</h1>
+<p>It's easier to unittest small functions.</p>
+
+</article>
+<article class="slide level-1" id="classes-over-functions-extending">
+<h1>Classes over functions: extending</h1>
+<p>Classes can be subclassed to extend their methods.  Functions can't.</p>
+<p><cite>Start Writing More Classes</cite> by Armin Ronacher
+<a class="reference external" href="http://lucumr.pocoo.org/2013/2/13/moar-classes/">http://lucumr.pocoo.org/2013/2/13/moar-classes/</a></p>
+
+</article>
+<article class="slide level-1" id="short-methods-bad-example">
+<h1>Short methods: bad example</h1>
+<div class="bad highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">XMLParser</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">validate_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xml</span><span class="p">):</span>
+        <span class="n">xml_sig</span> <span class="o">=</span> <span class="n">xml</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;./Signature/text()&#39;</span><span class="p">)</span>
+        <span class="n">timestamp</span> <span class="o">=</span> <span class="n">xml</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;./Timestamp/text()&#39;</span><span class="p">)</span>
+
+        <span class="c"># Calculate valid signature.</span>
+        <span class="n">sig</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">timestamp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">developer</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">certificate</span><span class="p">])</span>
+        <span class="n">md5sig</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">sig</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">digest</span><span class="p">()</span>
+        <span class="n">b64sig</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">md5sig</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">xml_sig</span> <span class="o">!=</span> <span class="n">b64sig</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">SignatureError</span><span class="p">(</span><span class="s">&#39;XML signature is invalid.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>How to test finding the <tt class="docutils literal"><span class="pre">xml_sig</span></tt> and <tt class="docutils literal"><span class="pre">timestamp</span></tt>?</li>
+<li>How to test calculating the valid signature?</li>
+</ul>
+
+</article>
+<article class="slide level-1" id="short-methods-good-example">
+<h1>Short methods: good example</h1>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">XMLParser</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">validate_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xml</span><span class="p">):</span>
+        <span class="n">xml_sig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_signature</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+        <span class="n">timestamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_timestamp</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+        <span class="n">valid_sig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_signature</span><span class="p">(</span><span class="n">timestamp</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">xml_sig</span> <span class="o">!=</span> <span class="n">valid_sig</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">SignatureError</span><span class="p">(</span><span class="s">&#39;XML signature is invalid.&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_find_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xml</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">xml</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;./Signature/text()&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_find_timestamp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xml</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">xml</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;./Timestamp/text()&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_calculate_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">):</span>
+        <span class="n">sig</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">timestamp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">developer</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">certificate</span><span class="p">])</span>
+        <span class="n">md5sig</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">sig</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">digest</span><span class="p">()</span>
+        <span class="n">b64sig</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">md5sig</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">b64sig</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Comment replaced by a method name.</li>
+<li>Each unit can be tested separately.</li>
+</ul>
+
+</article>
+<article class="slide level-1" id="methods-order">
+<h1>Methods order</h1>
+<ol class="arabic simple">
+<li><tt class="docutils literal"><span class="pre">__init__</span></tt></li>
+<li>Other special methods, like <tt class="docutils literal"><span class="pre">__repr__</span></tt>, <tt class="docutils literal"><span class="pre">__str__</span></tt>, <tt class="docutils literal"><span class="pre">__eq__</span></tt>, etc.</li>
+<li>classmethods</li>
+<li>Properties</li>
+<li>Instance methods</li>
+</ol>
+
+</article>
+<article class="slide level-1" id="instance-methods-order">
+<h1>Instance methods order</h1>
+<ol class="arabic simple">
+<li>Public method</li>
+<li>Helper methods in the order in which they are used</li>
+</ol>
+<p>You read from top to bottom.</p>
+
+</article>
+<article class="slide level-1" id="methods-order-bad-example">
+<h1>Methods order: bad example</h1>
+<div class="bad highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">XMLParser</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">_find_timestamp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xml</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">xml</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;./Timestamp/text()&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_find_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xml</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">xml</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;./Signature/text()&#39;</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_config</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s">&#39;developer&#39;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s">&#39;app&#39;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s">&#39;certificate&#39;</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">_calculate_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">):</span>
+        <span class="n">sig</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">timestamp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">developer</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">certificate</span><span class="p">])</span>
+        <span class="n">md5sig</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">sig</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">digest</span><span class="p">()</span>
+        <span class="n">b64sig</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">md5sig</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">b64sig</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">developer</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="n">certificate</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">developer</span> <span class="o">=</span> <span class="n">developer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">app</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">certificate</span> <span class="o">=</span> <span class="n">certificate</span>
+
+    <span class="k">def</span> <span class="nf">validate_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xml</span><span class="p">):</span>
+        <span class="n">xml_sig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_signature</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+        <span class="n">timestamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_timestamp</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+        <span class="n">valid_sig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_signature</span><span class="p">(</span><span class="n">timestamp</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">xml_sig</span> <span class="o">!=</span> <span class="n">valid_sig</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">SignatureError</span><span class="p">(</span><span class="s">&#39;XML signature is invalid.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>I don't know what the <tt class="docutils literal"><span class="pre">_find_timestamp()</span></tt> is used for until I read the
+<tt class="docutils literal"><span class="pre">validate_signature</span></tt> method.</li>
+<li>Maybe after reading the <tt class="docutils literal"><span class="pre">validate_signature()</span></tt> I won't care about the
+implementation of finding the timestamp and signature.</li>
+<li>To find out how to instantiate, I have to skip some methods which I don't
+care about for now.</li>
+</ul>
+
+</article>
+<article class="slide level-1" id="methods-order-good-example">
+<h1>Methods order: good example</h1>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">XMLParser</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">developer</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="n">certificate</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">developer</span> <span class="o">=</span> <span class="n">developer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">app</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">certificate</span> <span class="o">=</span> <span class="n">certificate</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_config</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s">&#39;developer&#39;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s">&#39;app&#39;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s">&#39;certificate&#39;</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">validate_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xml</span><span class="p">):</span>
+        <span class="n">xml_sig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_signature</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+        <span class="n">timestamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_timestamp</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+        <span class="n">valid_sig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_signature</span><span class="p">(</span><span class="n">timestamp</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">xml_sig</span> <span class="o">!=</span> <span class="n">valid_sig</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">SignatureError</span><span class="p">(</span><span class="s">&#39;XML signature is invalid.&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_find_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xml</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">xml</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;./Signature/text()&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_find_timestamp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xml</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">xml</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;./Timestamp/text()&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_calculate_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">):</span>
+        <span class="n">sig</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">timestamp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">developer</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">certificate</span><span class="p">])</span>
+        <span class="n">md5sig</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">sig</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">digest</span><span class="p">()</span>
+        <span class="n">b64sig</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">md5sig</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">b64sig</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>I can immediately see how to instantiate.  Oh, and there's an alternative
+constructor.</li>
+<li>Public method is what I'll probably use.  For now I don't care about the
+helpers.</li>
+<li>When reading the public method, I see the flow but I don't have to know
+the implementation of each step.</li>
+<li>If I'm interested in how the signature is calculated, I can go to the helper
+method below.  And I can test it without parsing the XML.</li>
+</ul>
+
+</article>
+<article class="slide level-1" id="thank-you">
+<h1>Thank you</h1>
+<ul class="simple">
+<li>Twitter: <a class="reference external" href="https://twitter.com/ignacy">&#64;ignacy</a></li>
+<li>Github: <a class="reference external" href="https://github.com/ignacysokolowski">ignacysokolowski</a></li>
+<li>E-mail: <a class="reference external" href="mailto:ignacy&#46;sokolowski&#37;&#52;&#48;gmail&#46;com">ignacy<span>&#46;</span>sokolowski<span>&#64;</span>gmail<span>&#46;</span>com</a></li>
+</ul>
+
+</article>
+<article class="admonition- slide level-1">
+<div class="figure">
+<img alt="_images/summercamp.jpg" class="centered" src="_images/summercamp.jpg" />
+</div>
+
+</article>
+
+
+</section>
+
+<section id="slide_notes">
+
+</section>
+
+  </body>
+</html>

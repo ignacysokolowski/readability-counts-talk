@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Indentation of a dictionary, list, etc. &mdash; Readability Counts  documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/slides.css" type="text/css" />
+    
+
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/common.js"></script>
+    <script type="text/javascript" src="../_static/slides.js"></script>
+    <script type="text/javascript" src="../_static/sync.js"></script>
+    <script type="text/javascript" src="../_static/controller.js"></script>
+    <script type="text/javascript" src="../_static/init.js"></script>
+    
+    <link rel="top" title="Readability Counts  documentation" href="../index.html" /> 
+  </head>
+  <body>
+
+<section
+   id="slide_container"
+   class='slides layout-regular'>
+
+
+  <article class="slide level-1" id="indentation-of-a-dictionary-list-etc">
+<h1>Indentation of a dictionary, list, etc.</h1>
+<p><strong>BAD:</strong></p>
+<div class="bad highlight-python"><div class="highlight"><pre><span class="n">some_dictionary</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;ok&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s">&#39;not_found&#39;</span><span class="p">:</span> <span class="mi">404</span><span class="p">,</span> <span class="s">&#39;forbidden&#39;</span><span class="p">:</span> <span class="mi">403</span><span class="p">,</span>
+                   <span class="s">&#39;bad_request&#39;</span><span class="p">:</span> <span class="mi">400</span><span class="p">,</span> <span class="s">&#39;internal_server_error&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-diff"><div class="highlight"><pre><span class="gu">@@ -27,7 +27,6 @@</span>
+<span class="gd">- some_dictionary = {&#39;ok&#39;: 200, &#39;not_found&#39;: 404, &#39;forbidden&#39;: 403,</span>
+<span class="gd">-                    &#39;bad_request&#39;: 400, &#39;internal_server_error&#39;: 500}</span>
+<span class="gi">+ some_dictionary = {&#39;ok&#39;: 200, &#39;unauthorized&#39;: 401, &#39;not_found&#39;: 404,</span>
+<span class="gi">+                    &#39;forbidden&#39;: 403, &#39;bad_request&#39;: 400,</span>
+<span class="gi">+                    &#39;internal_server_error&#39;: 500}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>What changed?  A key, a value?  A new item was added?</li>
+</ul>
+
+</article>
+
+
+</section>
+
+<section id="slide_notes">
+
+</section>
+
+  </body>
+</html>

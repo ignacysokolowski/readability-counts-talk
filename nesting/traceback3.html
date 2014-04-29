@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Nesting statements in one line &mdash; Readability Counts  documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/slides.css" type="text/css" />
+    
+
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/common.js"></script>
+    <script type="text/javascript" src="../_static/slides.js"></script>
+    <script type="text/javascript" src="../_static/sync.js"></script>
+    <script type="text/javascript" src="../_static/controller.js"></script>
+    <script type="text/javascript" src="../_static/init.js"></script>
+    
+    <link rel="top" title="Readability Counts  documentation" href="../index.html" /> 
+  </head>
+  <body>
+
+<section
+   id="slide_container"
+   class='slides layout-regular'>
+
+
+  <article class="slide level-1" id="nesting-statements-in-one-line">
+<h1>Nesting statements in one line</h1>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">[{</span><span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">}]</span>
+</pre></div>
+</div>
+<p><strong>BAD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre>Traceback (most recent call last):
+  File &quot;./initial.py&quot;, line 7, in get_first_initial_bad
+    return json.loads(open(file_path).read())[0][&#39;title&#39;][0].upper()
+TypeError: &#39;NoneType&#39; object has no attribute &#39;__getitem__&#39;
+</pre></div>
+</div>
+<ul class="simple">
+<li>Which is <tt class="docutils literal"><span class="pre">None</span></tt>?  The JSON object or the title?</li>
+</ul>
+<p><strong>GOOD:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre>Traceback (most recent call last):
+  File &quot;./initial.py&quot;, line 16, in get_first_initial_good
+    first_letter = title[0]
+TypeError: &#39;NoneType&#39; object has no attribute &#39;__getitem__&#39;
+</pre></div>
+</div>
+
+</article>
+
+
+</section>
+
+<section id="slide_notes">
+
+</section>
+
+  </body>
+</html>
