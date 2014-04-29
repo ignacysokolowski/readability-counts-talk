@@ -1,0 +1,11 @@
+#!/bin/bash
+for x in $(ls -1 *.json); do
+	cat $x
+	echo -e "\nBAD:"
+	./initial.py $x bad
+	echo -e "\nGOOD:"
+	./initial.py $x good
+	echo
+	echo "--------------------------------------------------------------------"
+	echo
+done
