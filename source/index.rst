@@ -71,5 +71,3 @@ Ignacy Sokołowski
 
    .. figure:: /_static/summercamp.jpg
       :class: centered
-
-      CC BY-SA http://www.flickr.com/photos/tamburix/2900909093/
