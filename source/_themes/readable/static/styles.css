@@ -32,7 +32,7 @@ body {
   display: block !important;
 
   height: 100%;
-  min-height: 1204px;
+  min-height: 1000px;
 
   overflow-x: hidden;
   overflow-y: auto;
